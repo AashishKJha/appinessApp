@@ -9,6 +9,11 @@ export class IndexRoute {
     }
     static mergerRoutes(): express.Router {
         this.indexRoute.use('/auth', AuthRoutes.mergeRoutes());
+        
+        // Error Handling middle-ware
+        this.indexRoute.use((err, req, res, next) => {
+            res.status(err.status).send(err.data);
+        });
         this.indexRoute.use('**', (req:express.Request, res:express.Response, cb) => {
             res.sendStatus(404);
         });

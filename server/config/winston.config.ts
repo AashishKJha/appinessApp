@@ -11,7 +11,7 @@ class WinstonLogger {
         this.logger = this.createLogger();
     }
 
-    public  static getLogger(): Logger {
+    public static getLogger(): Logger {
         if (!this._instance) {
             this._instance = new WinstonLogger();
         }
@@ -35,15 +35,6 @@ class WinstonLogger {
                         format.colorize(),
                         format.simple()
                     )
-                }),
-
-                //loggin in files only errors level.
-                new transports.File({
-                    level: "error",
-                    filename: ENV.getVars('LOG_HOME'),
-                    format: format.json(),
-                    maxsize: 50000,
-                    maxFiles: 10,
                 })
             ]
         });

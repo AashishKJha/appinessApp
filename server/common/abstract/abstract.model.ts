@@ -1,14 +1,10 @@
-import { Column } from 'typeorm';
 import { BaseModel } from '../interfaces/interface.model';
-
 
 export abstract class BaseAbstractModel implements BaseModel {
 
-    @Column({ name: 'created_at', nullable: false })
-    protected created_at: Date = new Date();
+    protected created_at: Date;
 
-    @Column({ name: 'updated_at', nullable: false })
-    protected updated_at: Date = new Date();
+    protected updated_at: Date;
 
     public get_created_at(): Date{
         return this.created_at;

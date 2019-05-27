@@ -1,45 +1,48 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseAbstractModel } from '../../common/abstract/abstract.model';
+import mongoose from 'mongoose'
 
-@Entity({ name: "user_table" })
 export class UserEntity extends BaseAbstractModel {
 
-    public static _obj: UserEntity;
+    public static _obj: any;
 
-    @PrimaryGeneratedColumn({ name: "user_id" })
-    user_id: number;
+    public static auth_model : any ;
 
-    @Column({ name: "user_name", nullable: false, unique: false, length: 100 })
-    user_name: string;
+    user_name =  { minlength: 5, maxlength: 50, type: String, required: true};
 
-    @Column({ name: "user_email", length: 100, nullable: false, unique: true })
-    user_email: string;
+    user_email = { type :String , maxlength: 50, unique: true, required: true};
+
+    user_password = { type : String , maxlength: 20, required: true };
+
+    user_mobile_number = { type: String, minlength: 10, maxlength : 15, unique : true, required:true} ;
+
+    user_role  = { default : 'user', required: true,  type : String};
 
     private constructor() {
         super()
     }
 
-    public set_user_name(user_name: string) {
+    public set_user_name(user_name) {
         this.user_name = user_name
     }
 
-    public get_user_name(): string {
+    public get_user_name() {
         return this.user_name
     }
 
-    public set_user_email(user_email: string) {
+    public set_user_email(user_email) {
         this.user_email = user_email
     }
 
-    public get_user_email(): string {
+    public get_user_email() {
         return this.user_email
     }
 
-    public static _instance(): UserEntity {
+    public static _instance() {
         if (!this._obj) {
             this._obj = new UserEntity();
         }
-        return this._obj
+        console.log(this._obj);
+        return this._obj;
     }
 
     public toString(): string {
@@ -47,4 +50,6 @@ export class UserEntity extends BaseAbstractModel {
     }
 }
 
-export const userEntity = UserEntity._instance();
+export const userEntity :any = UserEntity._instance();
+
+export const AUTH_MODEL = mongoose.model('UserModel', new mongoose.Schema(userEntity))
