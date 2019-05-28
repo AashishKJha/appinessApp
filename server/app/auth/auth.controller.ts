@@ -1,65 +1,47 @@
 import { NextFunction, Request, Response } from 'express';
 import { AUTH_MODEL } from './auth.entity';
 import { AppException } from '../../common/helper/app-excemption';
+import { ClientResponse } from '../../common/response/client.response';
+import SecurityUtils from '../../common/security/utils/security.utils';
+import { TokenService } from "../../common/security/authentication/tokenGenerator";
+import { ENV } from '../../config/env.config';
+import { BaseUserOps } from '../../common/classes/users.base';
 
-export class AuthController {
-    static loginController(req: Request, res: Response, cb: NextFunction): void {
+export class AuthController extends BaseUserOps {
+    static loginController(req: Request, res: Response, next: NextFunction): void {
         let body = req.body;
-
         let model = new AUTH_MODEL({
-            user_name: body.userName,
-            user_email: body.userEmail,
-            user_password: body.password,
-            user_mobile_number: body.userContactNo,
-            user_role: body.role
-        })
+            user_email: body.user_email,
+            user_password: body.user_password
+        });
 
         const err = model.validateSync();
 
-        if(err) {
-            console.log(err);
-        } else {
-            model.save().then((st) => res.send("Saved").status(200)).catch((err) => res.send(err))
-        }
-    }
-
-    static registerControlller(req: Request, res: Response, next: NextFunction): void {
-        let body = req.body;
-
-        const register = new AUTH_MODEL({
-            user_name: body.userName,
-            user_email: body.userEmail,
-            user_password: body.password,
-            user_mobile_number: body.userContactNo,
-            user_role: body.role
-            // user_password: SecurityUtils.getEncryptedPassword(signupDTO.getPassword)
-        });
-
-        const valErr = register.validateSync();
-
-        console.log(valErr);
-
-
-        if(valErr){
-            console.log(valErr);
-            next(new AppException(500, valErr));
-        } else {
-            AUTH_MODEL.findOne({ user_email : body.userEmail }, (err, resp) => {
+        if (body.user_email && body.user_password) {
+            AUTH_MODEL.findOne({ user_email: body.user_email }, (err, authResp :any) => {
                 if (err) {
-                    console.log(err);
-                    next(new AppException(500, JSON.stringify(err)));
-                } else if (resp) {
-                    next(new AppException(401, "User Already Exist"));
-                } else {
-                    register.save((saveErr) => {
-                        if (saveErr) {
-                            next(new AppException(500, JSON.stringify(saveErr)));
+                    next(new AppException(401, ClientResponse.createFailure('User Not Found')));
+                } else if (authResp) {
+                    console.log(authResp)
+                    const isAuth = new SecurityUtils(body.user_password).validatePassword(authResp.user_password);
+                    isAuth.then((bool) => {
+                        if (bool) {
+                            res.status(200).send(ClientResponse.createSucess({
+                                token: new TokenService(true, authResp).getAccessToken(),
+                                username: body.user_email,
+                                user_role : authResp.user_role.code,
+                                exp_time: parseInt(ENV.getVars('EXT'))
+                            }));
                         } else {
-                            res.sendStatus(200);
+                            next(new AppException(401, ClientResponse.createFailure("Incorect Password")));
                         }
                     });
+                } else {
+                    next(new AppException(401, ClientResponse.createFailure('User Not Found')));
                 }
             });
         }
     }
+
+   
 }

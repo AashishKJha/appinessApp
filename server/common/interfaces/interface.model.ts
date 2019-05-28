@@ -1,7 +1,7 @@
 export interface BaseModel {
-    get_created_at(): Date
-    set_created_at(date: Date): void
-    get_updated_at(): Date
-    set_updated_at(date: Date): void
-    toString(): string
+    get_created_at()
+    set_created_at(date)
+    get_updated_at()
+    set_updated_at(date)
+    toString()
 }

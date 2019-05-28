@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <mat-card>
     <mat-card-title>
 
@@ -12,23 +12,24 @@
           <div class="col-md-4">
             <mat-form-field appearance="outline">
               <mat-label>Full Name</mat-label>
-              <input matInput placeholder="Enter Name" formControlName="userName">
+              <input matInput placeholder="Enter Name" formControlName="user_name">
             </mat-form-field>
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input matInput placeholder="Enter Email" formControlName="userEmail">
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-label>Contact Number</mat-label>
-              <input matInput placeholder="Enter Contact Number" formControlName="userContactNo">
+              <input matInput placeholder="Enter Email" formControlName="user_email">
             </mat-form-field>
           </div>
 
-          <div class="col-md-4" formGroupName ="gender">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Contact Number</mat-label>
+              <input matInput placeholder="Enter Contact Number" formControlName="user_mobile_number">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4" formGroupName ="user_gender">
             <label>Select Gender</label>
             <mat-radio-group formControlName = "code">
               <mat-radio-button *ngFor="let gn of GENDER" [value]="gn.code">
@@ -37,11 +38,17 @@
             </mat-radio-group>
           </div>
 
+          <mat-form-field class="col-md-4">
+            <input matInput [matDatepicker]="picker" placeholder="Choose Date Of Birth" formControlName="user_dob">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
             <mat-form-field class="col-md-4">
-              <textarea matInput placeholder="Full Adress" formControlName="userAddress"></textarea>
+              <textarea matInput placeholder="Full Adress" formControlName="user_address"></textarea>
             </mat-form-field>
 
-            <mat-form-field class="col-md-4" formGroupName ="userRole">
+            <mat-form-field class="col-md-4" formGroupName ="user_role">
               <mat-label>Select Role</mat-label>
               <mat-select formControlName="code">
                 <mat-option *ngFor="let rl of ROLES" [value]="rl.code">
@@ -54,14 +61,14 @@
           <div class="col-md-4">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput placeholder="Enter Password" formControlName="password">
+              <input matInput placeholder="Enter Password" formControlName="user_password">
             </mat-form-field>
           </div>
 
           <div class="col-md-4">
             <mat-form-field appearance="outline">
               <mat-label>Confirm Password</mat-label>
-              <input matInput placeholder="Re-Enter Password" formControlName="confirmPassword">
+              <input matInput placeholder="Re-Enter Password" formControlName="confirm_password">
             </mat-form-field>
           </div>
         </div>

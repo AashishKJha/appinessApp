@@ -7,6 +7,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatDatepickerModule, } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -17,7 +20,10 @@ const MODULE = [
   MatInputModule,
   MatButtonModule,
   MatSelectModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatTableModule
 ]
 
 @NgModule({
@@ -28,6 +34,9 @@ const MODULE = [
   ],
   exports  : [
     ...MODULE
+  ],
+  providers : [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ]
 })
 export class MaterialModule { }

@@ -8,7 +8,7 @@ export class AuthRoutes {
     private constructor() { }
 
     static mergeRoutes(): express.Router {
-        this.authRoutes.get('/login', AuthController.loginController);
+        this.authRoutes.post('/login', AuthController.loginController);
         this.authRoutes.post('/register', AuthController.registerControlller);
         return this.authRoutes;
     }

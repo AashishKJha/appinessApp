@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import CommonUtils from '../../utils/common.utils';
 
-class SecurityUtils extends CommonUtils {
+
+class SecurityUtils {
+    protected password : string;
     constructor(password) {
-      super();
       this.password = password;
     }
 

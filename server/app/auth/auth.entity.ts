@@ -1,5 +1,5 @@
 import { BaseAbstractModel } from '../../common/abstract/abstract.model';
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 export class UserEntity extends BaseAbstractModel {
 
@@ -11,13 +11,25 @@ export class UserEntity extends BaseAbstractModel {
 
     user_email = { type :String , maxlength: 50, unique: true, required: true};
 
-    user_password = { type : String , maxlength: 20, required: true };
+    user_password = { type : String ,required: true };
 
     user_mobile_number = { type: String, minlength: 10, maxlength : 15, unique : true, required:true} ;
 
-    user_role  = { default : 'user', required: true,  type : String};
+    user_role = new Schema({
+        code: { type: String, required: true },
+        name: { type: String}
+    });
 
-    private constructor() {
+    user_dob = {type : Date, required : true};
+
+    user_gender = new Schema({ 
+        code : {type : String, required : true},
+        name: { type: String }
+    });
+
+    user_address = { type : String, required : true}
+
+    constructor() {
         super()
     }
 

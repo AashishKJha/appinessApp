@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-
+import cors from 'cors';
 /**
  * Application routes will be initiated only onceso it should be singleton by behaviour.
  */
@@ -20,8 +20,8 @@ class ExpressApp {
         this.expressApp.use(bodyParser.urlencoded({ extended: true }));
         this.expressApp.use(cookieParser());
         this.expressApp.use(morgan('dev'));
+        this.expressApp.use(cors())
     }
-
     static getApp(): express.Express {
         if(!this.app){
             this.app = new ExpressApp();
