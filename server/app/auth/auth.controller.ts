@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { AUTH_MODEL } from './auth.entity';
 import { AppException } from '../../common/helper/app-excemption';
+
 export class AuthController {
     static loginController(req: Request, res: Response, cb: NextFunction): void {
         let body = req.body;

@@ -1,0 +1,33 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>
+      Login Card
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginFormGroup" (submit)="authenticate()" novalidate>
+        <div class="row">
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Enter Email" formControlName="userEmail">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Enter Password" formControlName="password">
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <button mat-stroked-button color="primary" class="w-100" type="submit">Login</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
