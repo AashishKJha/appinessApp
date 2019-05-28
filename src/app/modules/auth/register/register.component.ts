@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../user/user.service';
 
 
 @Component({
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+  @Input('label') label : string ;
+  @Input('frm') frm : any;
 
   public registerFormGroup: FormGroup;
 
@@ -23,16 +27,29 @@ export class RegisterComponent implements OnInit {
     { name: "Admin", code: "ADMIN" }
   ]
 
-  constructor(private _fb: FormBuilder, private auth: AuthService, protected router : Router) { }
+  constructor(private _fb: FormBuilder, private auth: AuthService,protected _usr : UserService, protected router : Router) { }
 
   ngOnInit() {
     this.createRegisterForm();
+    if(this.frm && this.label) {
+      console.log(this.frm)
+      this.registerFormGroup.get('user_password').clearValidators();
+      this.registerFormGroup.get('user_password').updateValueAndValidity();
+
+      this.registerFormGroup.get('confirm_password').clearValidators();
+      this.registerFormGroup.get('confirm_password').updateValueAndValidity();
+
+      this.registerFormGroup.patchValue(this.frm);
+    }
   }
 
   register() {
     if (this.registerFormGroup.invalid) {
       alert("Invalid Registration Form")
     } else {
+      if(this.frm && this.label){
+
+      }
       this.auth.register(this.registerFormGroup.value).subscribe((response) => {
         alert(response.message);
         this.router.navigate(['auth/login'])

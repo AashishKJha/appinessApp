@@ -9,7 +9,7 @@ import { HttpService } from '../../shared/http.service';
 import { AuthService } from './auth.service';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

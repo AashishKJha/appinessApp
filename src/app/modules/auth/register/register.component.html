@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>
 
-      Registration card
+      {{label?label : 'Register'}} card
 
     </mat-card-title>
 
@@ -58,14 +58,14 @@
             </mat-form-field>
 
 
-          <div class="col-md-4">
+          <div class="col-md-4" [hidden]="frm">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
               <input matInput placeholder="Enter Password" formControlName="user_password">
             </mat-form-field>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4" [hidden]="frm">
             <mat-form-field appearance="outline">
               <mat-label>Confirm Password</mat-label>
               <input matInput placeholder="Re-Enter Password" formControlName="confirm_password">
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <button mat-stroked-button color="primary" class="w-100" type="submit">Register</button>
+        <button mat-stroked-button color="primary" class="w-100" type="submit">{{label?label : 'Register'}}</button>
 
       </form>
     </mat-card-content>

@@ -13,4 +13,19 @@ export class UserService {
     let url = `api/user/all`;
     return this.http.get(url)
   }
+
+  updateUser(userData){
+    let url = `api/user`;
+    return this.http.post(url , userData)
+  }
+
+  deleteUser(userId){
+    let url = `api/user/${userId}`;
+    return this.http.delete(url);
+  }
+
+  getUserById(userId){
+    let url = `api/user/${userId}`;
+    return this.http.get(url);
+  }
 }
