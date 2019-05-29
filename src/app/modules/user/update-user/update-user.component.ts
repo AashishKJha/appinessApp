@@ -35,7 +35,6 @@ export class UpdateUserComponent implements OnInit {
 
   upadteUserById(){
     this._usr.updateUser(this.updateFormGroup.value).subscribe((updatedData) => {
-      console.log(updatedData)
       if(updatedData.success){
         alert("User Updated");
         this._router.navigate(['user/list']);

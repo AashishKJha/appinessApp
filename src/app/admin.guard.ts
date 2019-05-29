@@ -5,17 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AdminGuard implements CanActivate, CanLoad {
+	constructor() {
 
-	/**
-	 * Constructor to declare defualt propeties of class.
-	 * @param authService - Declare authentication service Object.
-	 * @param router - Declare router object.
-	 */
-	constructor(
-		private router: Router,
-	) { }
-
+	}
 
 	canActivate(next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -29,12 +22,12 @@ export class AuthGuard implements CanActivate, CanLoad {
 
 	isValidate() {
 		let current_user = JSON.parse(localStorage.getItem('current_user'));
-		if (current_user && current_user.token) {
+		if (current_user.user_role == 'ADMIN') {
 			return true;
 		} else {
-			this.router.navigate(['auth/login']);
 			return false;
 		}
 
 	}
 }
+

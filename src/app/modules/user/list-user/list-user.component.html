@@ -1,67 +1,59 @@
-<div class="container mt-5" >
+<div class="container mt-5">
 
-    <div class="text-right">
-        <button  mat-fab routerLink="../add-user">
-            <mat-icon>add</mat-icon> 
-          </button>
-          
-    </div>
-  <div class="example-container mat-elevation-z8 mt-2">
-    <div class="example-table-container">
-      <table mat-table [dataSource]="userDataList" class="example-table w-100" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-     
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>Id</th>
-          <td mat-cell *matCellDef="let row">{{row._id}}</td>
-        </ng-container>
+	<div class="text-center">
+		<h2>Available Users List</h2>
+	</div>
 
-        <ng-container matColumnDef="user_name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let row">{{row.user_name}}</td>
-        </ng-container>
-  
-        <ng-container matColumnDef="user_email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
-          <td mat-cell *matCellDef="let row">{{row.user_email}}</td>
-        </ng-container>
-  
-        <!-- Created Column -->
-        <ng-container matColumnDef="user_mobile_number">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-            Mobile Number
-          </th>
-          <td mat-cell *matCellDef="let row">{{row.user_mobile_number}}</td>
-        </ng-container>
+	<div class="text-right">
+		<button mat-mini-fab color="primary" routerLink="../add-user">
+			<mat-icon>add</mat-icon>
+		</button>
+	</div>
+	<div class="example-container mat-elevation-z8 mt-2">
+		<div class="example-table-container">
+			<table mat-table [dataSource]="userDataList" class="example-table w-100" matSort matSortActive="created" matSortDisableClear
+			 matSortDirection="desc">
 
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
-            Action
-          </th> 
-          <td mat-cell *matCellDef="let row;let i = index">
-            <button mat-icon-button (click)="editUserById(row, i)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="deleteUserById(row, i)">
-              <mat-icon>delete</mat-icon> 
-            </button>
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-  
-  </div>
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef>Id</th>
+					<td mat-cell *matCellDef="let row">{{row._id}}</td>
+				</ng-container>
+ 
+				<ng-container matColumnDef="user_name">
+					<th mat-header-cell *matHeaderCellDef>Name</th>
+					<td mat-cell *matCellDef="let row">{{row.user_name}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="user_email">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td mat-cell *matCellDef="let row">{{row.user_email}}</td>
+				</ng-container>
+
+				<!-- Created Column -->
+				<ng-container matColumnDef="user_mobile_number">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+						Mobile Number
+					</th>
+					<td mat-cell *matCellDef="let row">{{row.user_mobile_number}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="action">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+						Action
+					</th>
+					<td mat-cell *matCellDef="let row;let i = index">
+						<button mat-icon-button (click)="editUserById(row, i)">
+							<mat-icon color="primary">edit</mat-icon>
+						</button>
+						<button mat-icon-button (click)="deleteUserById(row, i)">
+							<mat-icon color="warn">delete</mat-icon>
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+		</div>
+	</div>
 </div>
-
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Edit User</h4>
-    <div>
-      <button title="Close" class=" mat-icon-button" aria-label="Close" (click)="modalRef.hide()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-  </div>
-</ng-template>

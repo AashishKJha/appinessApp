@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+
+
+<router-outlet>
+    <div class="text-right">
+        <button *ngIf="isLoggedIn()" mat-stroked-button color="primary" type="button" (click)="logout()">Logout</button>
+    </div>
+</router-outlet>

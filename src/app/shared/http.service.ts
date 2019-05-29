@@ -18,6 +18,8 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class HttpService {
 
+  protected current_user : any;
+
   constructor(private httpClient: HttpClient, private router: Router) {
   }
 
@@ -27,14 +29,13 @@ export class HttpService {
 
 
     if (headerOptions == null) {
-      let current_user = JSON.parse(localStorage.getItem('current_user'));
-      console.log(current_user);
+      this.current_user = JSON.parse(localStorage.getItem('current_user'));
 
       // if token is present then set the headers with auth token
-      if (current_user.token) {
+      if (this.current_user.token) {
         options = {
           headers: new HttpHeaders({
-            "Authorization": current_user.token,
+            "Authorization": this.current_user.token,
             "Content-Type": "application/json"
           })
         }

@@ -1,38 +1,38 @@
 <div class="container mt-5">
-  <mat-card>
-    <mat-card-title>
+	<mat-card>
+		<mat-card-title>
+			User Registration
+		</mat-card-title>
 
-      {{label?label : 'Register'}} card
+		<mat-card-content>
+			<form [formGroup]="registerFormGroup" novalidate (submit)="register()">
+				<app-user-details [form]="registerFormGroup"></app-user-details>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>Password</mat-label>
+							<input matInput placeholder="Enter Password" formControlName="user_password">
+							<app-errors [fg]="registerFormGroup.get('user_password')"></app-errors>
+						</mat-form-field>
+					</div>
 
-    </mat-card-title>
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>Confirm Password</mat-label>
+							<input matInput placeholder="Re-Enter Password" formControlName="confirm_password">
+							<app-errors [fg]="registerFormGroup.get('confirm_password')"></app-errors>
+						</mat-form-field>
+					</div>
+				</div>
 
-    <mat-card-content>
-      <form [formGroup]="registerFormGroup" novalidate (submit)="register()">
-        <app-user-details [form] ="registerFormGroup"></app-user-details>
-        <div class="row">
-          <div class="col-md-4" [hidden]="frm">
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input matInput placeholder="Enter Password" formControlName="user_password">
-            </mat-form-field>
-          </div>
+				<div class="text-center">
+					<button mat-raised-button color="primary" class="w-20" type="submit">{{label?label : 'Register'}}</button>
+				</div>
+			</form>
 
-          <div class="col-md-4" [hidden]="frm">
-            <mat-form-field appearance="outline">
-              <mat-label>Confirm Password</mat-label>
-              <input matInput placeholder="Re-Enter Password" formControlName="confirm_password">
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row">
-            <button mat-stroked-button color="primary" class="col-md-6 w-100" type="submit">{{label?label : 'Register'}}</button>
-        <button *ngIf="label == undefined" mat-stroked-button color="primary" class="col-md-6 w-100" type="button">Login</button>
-
-        </div>
-
-        
-      </form>
-    </mat-card-content>
-  </mat-card>
+		</mat-card-content>
+		<div class="text-center" *ngIf="label == undefined">
+			<button mat-stroked-button color="primary" class="col-md-6 w-20" (click)="navTo()">Login</button>
+		</div>
+	</mat-card>
 </div>

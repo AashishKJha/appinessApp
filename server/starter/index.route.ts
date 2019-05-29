@@ -7,9 +7,7 @@ import { LOGGER } from '../config/winston.config';
 export class IndexRoute {
     private static indexRoute: express.Router = express.Router();
 
-    private constructor() {
-
-    }
+    private constructor() {}
     
     static mergerRoutes(): express.Router {
         this.indexRoute.use('/auth', AuthRoutes.mergeRoutes());
@@ -20,6 +18,8 @@ export class IndexRoute {
             LOGGER.info(err)
             res.status(err.status).send(err.data);
         });
+
+        
         this.indexRoute.use('**', (req:express.Request, res:express.Response, cb) => {
             res.sendStatus(404);
         });

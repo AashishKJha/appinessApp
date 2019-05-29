@@ -2,10 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { AUTH_MODEL } from '../auth/auth.entity';
 import { AppException } from '../../common/helper/app-excemption';
 import { ClientResponse } from '../../common/response/client.response';
-import SecurityUtils from '../../common/security/utils/security.utils';
-import { TokenService } from "../../common/security/authentication/tokenGenerator";
 import { BaseUserOps } from '../../common/classes/users.base';
 import { TokenVerification } from '../../common/security/authorization/verifyToken';
+import { LOGGER } from '../../config/winston.config';
 
 export class UserController extends BaseUserOps {
 
@@ -38,8 +37,6 @@ export class UserController extends BaseUserOps {
     static updateUserByUserId(req: Request, res: Response, next: NextFunction): void {
         let body = req.body;
         AUTH_MODEL.updateOne({ _id: body._id }, body, (userError, userData) => {
-            console.log(userError)
-            console.log(userData)
             if (userError || !userData) {
                 next(new AppException(401, ClientResponse.createFailure('User Not Found')));
             } else {
@@ -50,7 +47,6 @@ export class UserController extends BaseUserOps {
 
     static deleteUserById(req: Request, res: Response, next: NextFunction): void {
         AUTH_MODEL.deleteOne({ _id: req.params.userId }, (userError) => {
-            console.log(userError)
             if (userError) {
                 next(new AppException(401, ClientResponse.createFailure('User Not Found')));
             } else {
@@ -68,7 +64,8 @@ export class UserController extends BaseUserOps {
                 next(new AppException(401, ClientResponse.createFailure('Not Authorized to add users')));
             }
         }).catch((err) => {
-            console.log(err);
+            LOGGER.info(err)
+            next(new AppException(401, ClientResponse.createFailure('Not Authorized to add users')));
         })
     }
 }

@@ -1,2 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.mat-form-field {
+    width:  100%;
+}
+
+.mat-card{
+    box-shadow: 0 2px 1px -1px #3f51b5, 0 1px 1px 0 #3f51b5, 0 1px 3px 0 #3f51b5 !important;
+    border: 1px solid #3f51b5;
+
+}
+
+.mat-header-cell {
+    color: white;
+    font-weight: bold
+}
+.mat-header-row {
+    background-color: #3f51b5;
+}
