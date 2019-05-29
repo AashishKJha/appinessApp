@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 import path  from 'path';
+import { runInNewContext } from 'vm';
 
 /**
  * Application routes will be initiated only once it should be singleton by behaviour.
@@ -24,8 +25,12 @@ class ExpressApp {
         this.expressApp.use(morgan('dev'));
         this.expressApp.use(cors())
         this.expressApp.use(express.static('dist/appiness'))
-        this.expressApp.get('*', (req, res) => {
-            res.sendFile('index.html', {root : path.join('dist/appiness')});
+        this.expressApp.use('**', (req, res, next) => {
+            if(req.originalUrl.includes('api')){
+                next()
+            } else {
+                res.sendFile('index.html', { root: path.join('dist/appiness') });
+            }
         })
     }
     static getApp(): express.Express {
