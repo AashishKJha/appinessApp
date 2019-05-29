@@ -12,7 +12,7 @@ export class TokenVerification {
             next(new AppException(401, errorResp));
         } else {
             tokenVar.getCurrentUser(req).then((auth) => {
-                if (auth.success) {
+                if (auth.success && auth.data.userData.user_role.code == 'ADMIN') {
                     next();
                 } else {
                     next(new AppException(401, ClientResponse.createFailure("Un Authorized Access")));

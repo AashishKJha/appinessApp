@@ -1,24 +1,25 @@
 <div class="container mt-5" >
 
-  <div class="example-container mat-elevation-z8">
-    
-  
+    <div class="text-right">
+        <button  mat-fab routerLink="../add-user">
+            <mat-icon>add</mat-icon> 
+          </button>
+          
+    </div>
+  <div class="example-container mat-elevation-z8 mt-2">
     <div class="example-table-container">
-  
       <table mat-table [dataSource]="userDataList" class="example-table w-100" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-        <!-- Number Column -->
+     
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
           <td mat-cell *matCellDef="let row">{{row._id}}</td>
         </ng-container>
-  
-        <!-- Title Column -->
+
         <ng-container matColumnDef="user_name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let row">{{row.user_name}}</td>
         </ng-container>
   
-        <!-- State Column -->
         <ng-container matColumnDef="user_email">
           <th mat-header-cell *matHeaderCellDef>Email</th>
           <td mat-cell *matCellDef="let row">{{row.user_email}}</td>

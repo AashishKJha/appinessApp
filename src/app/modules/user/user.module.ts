@@ -6,7 +6,6 @@ import { ListUserComponent } from './list-user/list-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { SharedModule } from '../../shared/shared.module';
-import { RegisterComponent } from '../auth/register/register.component';
 
 @NgModule({
   declarations: [ListUserComponent, AddUserComponent, UpdateUserComponent],

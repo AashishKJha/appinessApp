@@ -8,56 +8,8 @@
 
     <mat-card-content>
       <form [formGroup]="registerFormGroup" novalidate (submit)="register()">
+        <app-user-details [form] ="registerFormGroup"></app-user-details>
         <div class="row">
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-label>Full Name</mat-label>
-              <input matInput placeholder="Enter Name" formControlName="user_name">
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput placeholder="Enter Email" formControlName="user_email">
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-label>Contact Number</mat-label>
-              <input matInput placeholder="Enter Contact Number" formControlName="user_mobile_number">
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-4" formGroupName ="user_gender">
-            <label>Select Gender</label>
-            <mat-radio-group formControlName = "code">
-              <mat-radio-button *ngFor="let gn of GENDER" [value]="gn.code">
-                {{gn.name}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-
-          <mat-form-field class="col-md-4">
-            <input matInput [matDatepicker]="picker" placeholder="Choose Date Of Birth" formControlName="user_dob">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-            <mat-form-field class="col-md-4">
-              <textarea matInput placeholder="Full Adress" formControlName="user_address"></textarea>
-            </mat-form-field>
-
-            <mat-form-field class="col-md-4" formGroupName ="user_role">
-              <mat-label>Select Role</mat-label>
-              <mat-select formControlName="code">
-                <mat-option *ngFor="let rl of ROLES" [value]="rl.code">
-                  {{rl.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-
           <div class="col-md-4" [hidden]="frm">
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
@@ -73,8 +25,13 @@
           </div>
         </div>
 
-        <button mat-stroked-button color="primary" class="w-100" type="submit">{{label?label : 'Register'}}</button>
+        <div class="row">
+            <button mat-stroked-button color="primary" class="col-md-6 w-100" type="submit">{{label?label : 'Register'}}</button>
+        <button *ngIf="label == undefined" mat-stroked-button color="primary" class="col-md-6 w-100" type="button">Login</button>
 
+        </div>
+
+        
       </form>
     </mat-card-content>
   </mat-card>

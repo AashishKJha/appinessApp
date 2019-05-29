@@ -64,6 +64,10 @@ export class ListUserComponent implements OnInit {
     })
   }
 
+  addNewUser(){
+    
+  }
+
   openPopup(template, row) {
     this.userFormGroup = row;
     this.modalRef = this.modalService.show(template, Object.assign({ ignoreBackdropClick: true }, { class: 'gray modal-lg' }));

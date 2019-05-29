@@ -1,1 +1,20 @@
-<app-register *ngIf="user" [label]="'Update'" [frm]="user"></app-register>
+<div class="container mt-5">
+  <mat-card>
+    <mat-card-title>
+
+      {{label?label : 'Register'}} card
+
+    </mat-card-title>
+
+    <mat-card-content>
+      <form [formGroup]="updateFormGroup" novalidate (submit)="upadteUserById()">
+        <app-user-details [form]="updateFormGroup"></app-user-details>
+
+        <div class="row">
+          <button mat-stroked-button color="primary" class="col-md-6 w-100" type="submit">Update</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

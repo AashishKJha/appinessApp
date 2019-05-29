@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-update-user',
@@ -9,11 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UpdateUserComponent implements OnInit {
 
-  user : any;
+  updateFormGroup : FormGroup ;
 
-  constructor(private _usr : UserService, private act :ActivatedRoute) { }
+  constructor(private _usr : UserService,private _fb : FormBuilder, private act :ActivatedRoute, private _router : Router) { }
 
   ngOnInit() {
+
+    this.updateFormGroup = this._fb.group({
+      _id : [null]
+    });
+
     this.act.paramMap.subscribe((pat) => {
       if(pat['params'].userId){
         this.getUserById(pat['params'].userId)
@@ -23,7 +29,17 @@ export class UpdateUserComponent implements OnInit {
 
   getUserById(userId){
     this._usr.getUserById(userId).subscribe((user) => {
-      this.user = user.message;
+      this.updateFormGroup.patchValue(user.message);
+    })
+  }
+
+  upadteUserById(){
+    this._usr.updateUser(this.updateFormGroup.value).subscribe((updatedData) => {
+      console.log(updatedData)
+      if(updatedData.success){
+        alert("User Updated");
+        this._router.navigate(['user/list']);
+      }
     })
   }
 

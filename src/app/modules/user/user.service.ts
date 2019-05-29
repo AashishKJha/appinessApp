@@ -15,7 +15,7 @@ export class UserService {
   }
 
   updateUser(userData){
-    let url = `api/user`;
+    let url = `api/user/update`;
     return this.http.post(url , userData)
   }
 

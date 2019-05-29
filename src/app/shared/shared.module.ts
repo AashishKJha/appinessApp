@@ -6,9 +6,10 @@ import { ModalModule } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 import { HttpService } from './http.service';
 import { RegisterComponent } from '../modules/auth/register/register.component';
+import { UserDetailsComponent } from '../modules/user/user-details/user-details.component';
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, UserDetailsComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -18,7 +19,8 @@ import { RegisterComponent } from '../modules/auth/register/register.component';
     MaterialModule,
     ReactiveFormsModule,
     ModalModule,
-    RegisterComponent
+    RegisterComponent,
+    UserDetailsComponent
   ],
   providers : [HttpService]
 })
