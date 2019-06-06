@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import  * as jwt from 'jsonwebtoken';
 import { ENV } from '../../../config/env.config';
 
 export class TokenService {

@@ -3,12 +3,10 @@ export class ClientResponse {
     protected success : boolean;
     constructor(success : boolean, message : any){
         this.success = success;
-
         this.message = message;
-
     }
 
-    static createSucess(message : any){
+    static createSucess(message : any){        
         return new ClientResponse(true, message)
     }
 
