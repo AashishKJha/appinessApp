@@ -1,9 +1,10 @@
 import * as bcrypt from 'bcrypt';
 
 
-class SecurityUtils {
+class SecurityUtils extends BaseUtils {
     protected password : string;
     constructor(password) {
+      super()
       this.password = password;
     }
 
