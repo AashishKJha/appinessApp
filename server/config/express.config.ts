@@ -3,8 +3,11 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
+import path  from 'path';
+import { runInNewContext } from 'vm';
+
 /**
- * Application routes will be initiated only onceso it should be singleton by behaviour.
+ * Application routes will be initiated only once it should be singleton by behaviour.
  */
 class ExpressApp {
     private static app : ExpressApp;
@@ -21,6 +24,14 @@ class ExpressApp {
         this.expressApp.use(cookieParser());
         this.expressApp.use(morgan('dev'));
         this.expressApp.use(cors())
+        this.expressApp.use(express.static('dist/appiness'))
+        this.expressApp.use('**', (req, res, next) => {
+            if(req.originalUrl.includes('api')){
+                next()
+            } else {
+                res.sendFile('index.html', { root: path.join('dist/appiness') });
+            }
+        })
     }
     static getApp(): express.Express {
         if(!this.app){

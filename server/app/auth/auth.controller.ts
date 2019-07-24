@@ -18,19 +18,19 @@ export class AuthController extends BaseUserOps {
         const err = model.validateSync();
 
         if (body.user_email && body.user_password) {
-            AUTH_MODEL.findOne({ user_email: body.user_email }, (err, authResp :any) => {
+            AUTH_MODEL.findOne({ user_email: body.user_email }, (err, authResp: any) => {
                 if (err) {
                     next(new AppException(401, ClientResponse.createFailure('User Not Found')));
                 } else if (authResp) {
-                    console.log(authResp)
                     const isAuth = new SecurityUtils(body.user_password).validatePassword(authResp.user_password);
                     isAuth.then((bool) => {
                         if (bool) {
                             res.status(200).send(ClientResponse.createSucess({
                                 token: new TokenService(true, authResp).getAccessToken(),
                                 username: body.user_email,
-                                user_role : authResp.user_role.code,
-                                exp_time: parseInt(ENV.getVars('EXT'))
+                                user_role: authResp.user_role.code,
+                                exp_time: parseInt(ENV.getVars('EXT')),
+                                user_id: authResp._id
                             }));
                         } else {
                             next(new AppException(401, ClientResponse.createFailure("Incorect Password")));
@@ -42,6 +42,4 @@ export class AuthController extends BaseUserOps {
             });
         }
     }
-
-   
 }

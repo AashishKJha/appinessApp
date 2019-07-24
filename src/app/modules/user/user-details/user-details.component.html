@@ -5,6 +5,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Full Name</mat-label>
         <input matInput placeholder="Enter Name" formControlName="user_name">
+        <app-errors [fg]="userForm.get('user_name')"></app-errors>
+
       </mat-form-field>
     </div>
 
@@ -12,6 +14,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput placeholder="Enter Email" formControlName="user_email">
+        <app-errors [fg]="userForm.get('user_email')"></app-errors>
+
       </mat-form-field>
     </div>
 
@@ -19,35 +23,42 @@
       <mat-form-field appearance="outline">
         <mat-label>Contact Number</mat-label>
         <input matInput placeholder="Enter Contact Number" formControlName="user_mobile_number">
+        <app-errors [fg]="userForm.get('user_mobile_number')"></app-errors>
+
       </mat-form-field>
     </div>
 
     <div class="col-md-4" formGroupName="user_gender">
       <label>Select Gender</label>
-      <mat-radio-group formControlName="code">
+      <mat-radio-group formControlName="code" appearance="outline">
         <mat-radio-button *ngFor="let gn of GENDER" [value]="gn.code">
           {{gn.name}}
         </mat-radio-button>
+        <app-errors [fg]="userForm.get('user_gender').get('code')"></app-errors>
+
       </mat-radio-group>
     </div>
 
-    <mat-form-field class="col-md-4">
+    <mat-form-field class="col-md-4" appearance="outline">
       <input matInput [matDatepicker]="picker" placeholder="Choose Date Of Birth" formControlName="user_dob">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <app-errors [fg]="userForm.get('user_dob')"></app-errors>
     </mat-form-field>
 
-    <mat-form-field class="col-md-4">
+    <mat-form-field class="col-md-4" appearance="outline">
       <textarea matInput placeholder="Full Adress" formControlName="user_address"></textarea>
+      <app-errors [fg]="userForm.get('user_address')"></app-errors>
     </mat-form-field>
 
-    <mat-form-field class="col-md-4" formGroupName="user_role">
+    <mat-form-field class="col-md-4" formGroupName="user_role" appearance="outline">
       <mat-label>Select Role</mat-label>
       <mat-select formControlName="code">
         <mat-option *ngFor="let rl of ROLES" [value]="rl.code">
           {{rl.name}}
         </mat-option>
       </mat-select>
+      <app-errors [fg]="userForm.get('user_role').get('code')"></app-errors>
     </mat-form-field>
   </div>
 </form>

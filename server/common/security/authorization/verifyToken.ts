@@ -1,10 +1,11 @@
 import { TokenService } from '../authentication/tokenGenerator';
 import { ClientResponse } from '../../response/client.response';
 import { AppException } from '../../helper/app-excemption';
+import { Request, Response, NextFunction } from 'express';
 
 export class TokenVerification {
 
-    static isAuthorized(req, res, next) {
+    static isAuthorized(req: Request, res : Response, next : NextFunction) {
         const tokenVar = new TokenVerification();
         const token = tokenVar.getToken(req);
         if (!token) {
@@ -12,7 +13,7 @@ export class TokenVerification {
             next(new AppException(401, errorResp));
         } else {
             tokenVar.getCurrentUser(req).then((auth) => {
-                if (auth.success && auth.data.userData.user_role.code == 'ADMIN') {
+                if (auth.success) {
                     next();
                 } else {
                     next(new AppException(401, ClientResponse.createFailure("Un Authorized Access")));

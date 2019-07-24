@@ -7,9 +7,10 @@ import { ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 import { HttpService } from './http.service';
 import { RegisterComponent } from '../modules/auth/register/register.component';
 import { UserDetailsComponent } from '../modules/user/user-details/user-details.component';
+import { ErrorsComponent } from './errors/errors.component';
 
 @NgModule({
-  declarations: [RegisterComponent, UserDetailsComponent],
+  declarations: [RegisterComponent, UserDetailsComponent, ErrorsComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -20,7 +21,8 @@ import { UserDetailsComponent } from '../modules/user/user-details/user-details.
     ReactiveFormsModule,
     ModalModule,
     RegisterComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ErrorsComponent
   ],
   providers : [HttpService]
 })

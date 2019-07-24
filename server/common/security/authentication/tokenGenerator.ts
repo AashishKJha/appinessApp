@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import  * as jwt from 'jsonwebtoken';
 import { ENV } from '../../../config/env.config';
 
 export class TokenService {
@@ -24,11 +24,9 @@ export class TokenService {
     static verifyToken(token) {
         return new Promise<any>((resolve, reject) => {
             jwt.verify(token, ENV.getVars('JWT_SECRET'), (err, data) => {
-                console.log(err);
                 if (err) {
                     resolve({ success: false });
                 } else {
-                    console.log(data)
                     resolve({ success: true, data });
                 }
             });

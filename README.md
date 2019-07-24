@@ -1,14 +1,20 @@
-# Appiness Test
+## TO RUN APPLICATION
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+1. Install MongoDB
 
-## TO RUN SERVER
+2. Create Database 'appiness' in MongoDB
 
-1. npm  install
+3. npm install 
 
-2. npm run compile
+5. Update environments.ts file 
 
-3. npm run server
+    1. envAPIServer: "http://your_system_ip:3300/"
+
+4. npm start.
+
+5. open browser with url : "http://your_system_ip:3300/"
+
+6. for more info read package.json
 
 
 ## Development server

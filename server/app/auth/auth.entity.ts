@@ -53,7 +53,6 @@ export class UserEntity extends BaseAbstractModel {
         if (!this._obj) {
             this._obj = new UserEntity();
         }
-        console.log(this._obj);
         return this._obj;
     }
 

@@ -1,72 +1,83 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../user/user.service';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
-  @Input('label') label : string ;
+	@Input('label') label: string;
+	public registerFormGroup: FormGroup;
+	constructor(private _fb: FormBuilder, private auth: AuthService, protected _usr: UserService, protected router: Router) { }
 
-  public registerFormGroup: FormGroup;
+	ngOnInit() {
+		this.createRegisterForm();
+	}
 
- 
+	register() {
+		if (this.registerFormGroup.invalid) {
+			alert("Invalid Registration Form")
+			this.getAllErrors(this.registerFormGroup)
+		} else if (this.registerFormGroup.get('user_password').value !== this.registerFormGroup.get('confirm_password').value) {
+			alert("Password & Confirm Password Not mathched")
+		}
+		else {
+			this.auth.register(this.registerFormGroup.value).subscribe((response) => {
+				alert(response.message);
+				let current_user = JSON.parse(localStorage.getItem("current_user"));
+				if (current_user && current_user.user_role == "ADMIN") {
+					this.router.navigate(['user/list']);
+				} else {
+					this.router.navigate(['auth/login'])
+				}
+			}, (err) => {
+				alert(err.error.message);
+			})
+		}
+	}
 
-  constructor(private _fb: FormBuilder, private auth: AuthService,protected _usr : UserService, protected router : Router) { }
+	createRegisterForm() {
+		this.registerFormGroup = this._fb.group({
+			user_password: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(30)]],
+			confirm_password: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
+		})
+	}
 
-  ngOnInit() {
-    console.log(this.label)
-    this.createRegisterForm();
-  }
+	public getAllErrors(form) {
+		this.markAsTouched(form);
+		let count = 0;
+		for (const key in form.controls) {
+			if (form.get(key).invalid) {
+				break;
+			}
+			count++;
+		}
+		return count;
+	}
 
-  register() {
-    if (this.registerFormGroup.invalid) {
-      alert("Invalid Registration Form")
-    } else {
+	/**
+	 * To mark invalid for as touched
+	 * @param form pass form here
+	 */
+	public markAsTouched(form) {
+		for (let controls in form.controls) {
+			let control = form.get(controls)
+			if (control instanceof FormControl) {
+				control.markAsTouched();
+				control.updateValueAndValidity();
+			} else if (control instanceof FormGroup) {
+				this.getAllErrors(control)
+			}
+		}
+	}
 
-      this.auth.register(this.registerFormGroup.value).subscribe((response) => {
-        alert(response.message);
-        this.router.navigate(['auth/login'])
-      }, (err) => {
-        alert(err.error.message);
-      })
-    }
-  }
-
-  createRegisterForm() {
-    this.registerFormGroup = this._fb.group({
-      // user_name: [null, [Validators.required, Validators.maxLength(50)]],
-      // user_email: [null, [Validators.required, Validators.maxLength(40)]],
-      user_password: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(30)]],
-
-      // user_mobile_number: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
-
-      // user_role: this._fb.group({
-      //   name: [null],
-      //   code: [null, [Validators.required]]
-      // }),
-      // user_gender: this._fb.group({
-      //   name: [null],
-      //   code: [null, [Validators.required]]
-      // }),
-      confirm_password: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
-      // user_address: [null, [Validators.required, Validators.maxLength(500)]],
-      // user_dob: [null, [Validators.required]]
-    })
-  }
-
-
-
-
-
-
-
-
-
+	navTo() {
+		this.router.navigate(["/auth/login"])
+	}
 }

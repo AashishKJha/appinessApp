@@ -12,5 +12,4 @@ export class AuthRoutes {
         this.authRoutes.post('/register', AuthController.registerControlller);
         return this.authRoutes;
     }
-    
 }
