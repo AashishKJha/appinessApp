@@ -5,6 +5,10 @@ import { AuthGuard } from './auth.guard';
 /**
  * Commenting to test something.
  */
+
+ /**
+  * Tesing Something else
+  */
 const routes: Routes = [
     { path: '', redirectTo: 'auth', pathMatch: 'full' },
     { path: 'auth', loadChildren: './modules/auth/auth.module#AuthModule' },
