@@ -1,5 +1,5 @@
 import { BaseAbstractModel } from '../../common/abstract/abstract.model';
-import mongoose, { Schema } from 'mongoose'
+import {Schema, model } from 'mongoose'
 
 export class UserEntity extends BaseAbstractModel {
 
@@ -63,4 +63,4 @@ export class UserEntity extends BaseAbstractModel {
 
 export const userEntity :any = UserEntity._instance();
 
-export const AUTH_MODEL = mongoose.model('UserModel', new mongoose.Schema(userEntity))
+export const AUTH_MODEL = model('UserModel', new Schema(userEntity))

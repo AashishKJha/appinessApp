@@ -20,7 +20,6 @@ export class UserController extends BaseUserOps {
         });
     }
 
-
     static getUserById(req: Request, res: Response, next: NextFunction): void {
         let UserId = req.params.userId;
         if (UserId) {
@@ -55,11 +54,11 @@ export class UserController extends BaseUserOps {
         });
     }
 
-     static addUserByAdmin (req: Request, res: Response, next: NextFunction){
+    static addUserByAdmin(req: Request, res: Response, next: NextFunction) {
         let tockenVar = new TokenVerification();
         tockenVar.getCurrentUser(req).then(user => {
             if (user.data.userData.user_role.code == 'ADMIN') {
-                 UserController.registerControlller(req, res, next);
+                UserController.registerControlller(req, res, next);
             } else {
                 next(new AppException(401, ClientResponse.createFailure('Not Authorized to add users')));
             }
@@ -68,4 +67,5 @@ export class UserController extends BaseUserOps {
             next(new AppException(401, ClientResponse.createFailure('Not Authorized to add users')));
         })
     }
+    
 }

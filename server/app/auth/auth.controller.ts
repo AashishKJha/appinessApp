@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { AUTH_MODEL } from './auth.entity';
+import { AUTH_MODEL } from './auth.entity'; 
 import { AppException } from '../../common/helper/app-excemption';
 import { ClientResponse } from '../../common/response/client.response';
 import SecurityUtils from '../../common/security/utils/security.utils';
